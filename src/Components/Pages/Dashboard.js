@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { AccountCircle, MenuBook } from '@material-ui/icons';
 import tech from './tech1.jpg'
 import { SimpleCard } from './DashboardComponents/SimpleCard';
+import { SimpleCard2 } from './DashboardComponents/SimpleCard2';
 
   
 export default class Dashboard extends Component {
@@ -69,24 +70,12 @@ export default class Dashboard extends Component {
                             <SimpleCard />
                             </div>
                             <div className='col-md'>
-
+                            <SimpleCard2 />
                             </div>
                         </div>
                     
                     </div>
-                    <div id="carouselExampleSlidesOnly" className={styles.carouselcon} class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img height='500px' class="d-block w-100" src={tech} alt="First slide"/>
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="..." alt="Second slide"/>
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="..." alt="Third slide"/>
-                            </div>
-                        </div>
-                    </div>
+                   
                 
                
 
@@ -108,7 +97,9 @@ export default class Dashboard extends Component {
                                             this.state.pages.slice(0).reverse().filter((item,index)=>{if(index<5){return item}}).map((item)=>
                                                     (
                                                         <TableRow key={item.pageId}>
-                                                            <TableCell>{capitalize(item.pageTitle)}</TableCell>
+                                                            <TableCell id={styles.li}>
+                                                                <Link to={`pages/viewPage/${item.pageId}`}>{capitalize(item.pageTitle)}</Link>
+                                                            </TableCell>
                                                             <TableCell>{capitalize(item.categoryTitle)}</TableCell>
                                                             <TableCell>{capitalize(item.fullName)}</TableCell>
                                                         </TableRow>
@@ -124,7 +115,7 @@ export default class Dashboard extends Component {
                             ) : null
                         }
                         <div className='mt-2'>
-                        <Link className='btn btn-primary' to={`/cms-app/pages`}>View All Pages</Link>
+                        <Link className='btn btn-dark' to={`/cms-app/pages`}>View All Pages</Link>
                         </div>
                         
                     </div>
@@ -155,7 +146,7 @@ export default class Dashboard extends Component {
                         </Table>
                     </TableContainer>
                     <div className='mt-2'>
-                    <Link className='btn btn-primary' to={`/cms-app/users`} >View All Users</Link>
+                    <Link className='btn btn-dark' to={`/cms-app/users`} >View All Users</Link>
                     </div>
                     
                     </div>

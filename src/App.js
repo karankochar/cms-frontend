@@ -6,6 +6,7 @@ import Footer from './Components/Layout/Footer'
 import Pages from './Components/Pages/Pages'
 import AddPage from './Components/Pagecomponents/AddPage'
 import LogoutComponent from './Components/Pages/LogoutComponent';
+import ViewPageById from './Components/Pagecomponents/ViewPageById';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route exact path='/cms-app/dashboard' component={Dashboard}/>
           <Route exact path='/cms-app/pages' component={Pages}/>
           <Route exact path='/cms-app/pages/addPage' component={AddPage}/>
-
+          <Route exact path='/cms-app/pages/viewPage/:id' component={ViewPageById}/>
         </Switch>
       </Router>
     </div>

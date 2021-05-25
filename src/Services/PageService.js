@@ -10,4 +10,8 @@ export class PageService {
     addPage(userId,categoryId,page){
         return axios.post(`${this.baseUrl}/addPage/${userId}/${categoryId}`,page)
     }
+
+    viewPage(pageId){
+        return axios.get(`${this.baseUrl}/byId/${pageId}`)
+    }
 }
