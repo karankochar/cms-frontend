@@ -1,5 +1,7 @@
 export default class Login{
-    userName='';
+    userId='';
+    email='';
     password='';
+    fullName='';
     role='';
 }

@@ -1,0 +1,36 @@
+body{
+    background-color: #f4f4f4;
+}
+.card{
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    min-height: 500px;
+    width: 90%;
+}
+
+.leftsidelogin,.rightsidelogin{
+    height: 90vh;
+    width: 100%;
+}
+
+.leftsidelogin{
+    background-image: url('./blue.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.rightsidelogin{
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
