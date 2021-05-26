@@ -10,6 +10,7 @@ import ViewPageById from './Components/Pagecomponents/ViewPageById';
 
 function App() {
   return (
+    <Router>
     <div>
       {sessionStorage.getItem("username")!=null ? 
         <div>
@@ -17,7 +18,7 @@ function App() {
         </div>
       : null }
     <div className='container'>
-      <Router>
+      
         <Switch>
           <Route exact path='/' component={LoginComponent}/>
           <Route exact path='/cms-app/logout' component={LogoutComponent}/>
@@ -26,7 +27,7 @@ function App() {
           <Route exact path='/cms-app/pages/addPage' component={AddPage}/>
           <Route exact path='/cms-app/pages/viewPage/:id' component={ViewPageById}/>
         </Switch>
-      </Router>
+      
     </div>
     {sessionStorage.getItem("username")!=null ? 
         <div>
@@ -35,6 +36,7 @@ function App() {
       : null }
       
     </div>
+    </Router>
   );
 }
 

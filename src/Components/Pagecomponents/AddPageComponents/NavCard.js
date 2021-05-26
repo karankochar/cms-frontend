@@ -4,12 +4,11 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
-import styles from "./SimpleCard2.module.css";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
-    backgroundColor: "#778da9",
+    minWidth: 275, 
+    backgroundColor: "#fec5bb",
   },
   bullet: {
     display: "inline-block",
@@ -28,37 +27,29 @@ const useStyles = makeStyles({
   },
 });
 
-export const SimpleCard2 = () => {
-  let user = sessionStorage.getItem("name");
-  let role = sessionStorage.getItem("role");
-  const classes = useStyles();
+const NavCard = () => {
+    let name = sessionStorage.getItem("name");
+    const classes = useStyles();
   return (
     <div>
       <Card className={classes.root}>
         <CardContent>
-          <Typography
+        <Typography
             className={classes.title}
             color="textSecondary"
             gutterBottom
           >
-            {role==="User" ? <div>What's on your mind</div> : <div>Hey Admin</div> }
+           {name}
           </Typography>
           <Typography variant="h5" component="h2" className={classes.content}>
-            {role==="User" ? <div>You can just write it out</div> : <div>Manage users</div> }
+            Look at what other creators have been writing
           </Typography>
-          <Typography variant="body2" component="p">
-            <br />
-            {role==="User" ?
-            <Link to="/cms-app/pages/addPage" className="btn btn-outline-light">
-            Write
-            </Link>
-            : <Link to="/cms-app/users" className="btn btn-outline-light">
-            Manage
-            </Link> }
-            
-          </Typography>
+          <br/>
+          <Link className='btn btn-light'>Browse</Link>
         </CardContent>
       </Card>
     </div>
   );
 };
+
+export default NavCard;

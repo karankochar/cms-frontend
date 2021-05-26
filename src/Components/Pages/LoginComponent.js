@@ -53,7 +53,7 @@ export default class LoginComponent extends Component {
                 this.setState({ error: { invalidCredentials: "Invalid Credentials" } })
             }
 
-        }).catch(this.setState({error: {invalidCredentials:"Invalid credentials"}}))
+        })
     }
 
     render() {

@@ -4,13 +4,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
-import styles from './SimpleCard.module.css'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 
 const useStyles = makeStyles({
     root: {
-      minWidth: 275,
-      
+      minWidth: 275
     },
     bullet: {
       display: 'inline-block',
@@ -29,10 +27,11 @@ const useStyles = makeStyles({
 export const SimpleCard = () => {
     let user = sessionStorage.getItem("name");
     let role = sessionStorage.getItem("role");
+    let userId = sessionStorage.getItem("userId");
     const classes = useStyles();
     return (
         <div>
-            <Card className={classes.root, styles.container}>
+            <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           Welcome back
@@ -40,12 +39,15 @@ export const SimpleCard = () => {
         <Typography variant="h5" component="h2">
           {user}({role})
         </Typography>
-        <Typography variant="body2" component="p">
-          <br/>
-          <Link to="/cms-app/logout" className="btn btn-outline-dark">
-                 Logout
-          </Link>
-        </Typography>
+       
+         <Typography variant="body2" component="p">
+         <br/>
+         <Link to={`users/modify/byId/${userId}`} className="btn btn-outline-dark">
+                Edit profile
+         </Link>
+       </Typography>
+      
+       
       </CardContent>
     </Card>
         </div>
