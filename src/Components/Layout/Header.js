@@ -16,7 +16,7 @@ function Header() {
        
           <a href="/cms-app/dashboard">Dashboard</a>
           <a href="/cms-app/pages">Pages</a>
-          <a href="/cms-app/user">User</a>
+          <a href="/cms-app/users">User</a>
           {role === ("Admin") ? <a href="/cms-app/categories">Categories</a> : <Link to={`users/search/byId/${userId}`}>Profile</Link> }
         </div>
         <button onClick={() => setShowLinks( !showLinks)}> {" "} <ReorderIcon/></button>

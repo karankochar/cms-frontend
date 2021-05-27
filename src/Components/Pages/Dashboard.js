@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { PageService } from "../../Services/PageService";
 import { UserService } from "../../Services/UserService";
+import {CategoryService} from "../../Services/CategoryService";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -14,15 +15,18 @@ import { AccountCircle, MenuBook } from "@material-ui/icons";
 import { SimpleCard } from "./DashboardComponents/SimpleCard";
 import { SimpleCard2 } from "./DashboardComponents/SimpleCard2";
 import { Card, CardContent, Typography } from "@material-ui/core";
+import Chart from "./DashboardComponents/Chart";
 
 export default class Dashboard extends Component {
   service = new PageService();
   UserService = new UserService();
+  categoryService = new CategoryService();
   constructor(props) {
     super(props);
     this.state = {
       pages: [],
       users: [],
+      categories:[]
     };
   }
 
@@ -42,6 +46,13 @@ export default class Dashboard extends Component {
     this.UserService.viewAll().then((result) => {
       this.setState({ users: result.data });
     });
+    this.categoryService.viewAll()
+    .then((res)=>{
+      console.log(res.data);
+      this.setState({categories:res.data})
+    }).catch((err)=>{
+      alert(err);
+    })
   }
 
   render() {
@@ -63,22 +74,7 @@ export default class Dashboard extends Component {
                 </div>
               </div>
             </div>
-
-            <div className="row">
-              <div className="col-md">
-                <Card>
-                  <CardContent>
-                    <Typography variant="h5" component="h2">
-                      <div className='d-flex justify-content-around'>
-                        <div>Total pages - {this.state.pages.length} </div>
-                        <div>Total users - {this.state.users.length}</div>
-                      </div>
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-
+            <Chart data={this.state.categories}/>
             <div className="row">
               <div className="col-md">
                 <h3>
