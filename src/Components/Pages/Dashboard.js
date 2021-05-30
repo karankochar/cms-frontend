@@ -14,8 +14,8 @@ import { Link } from "react-router-dom";
 import { AccountCircle, MenuBook } from "@material-ui/icons";
 import { SimpleCard } from "./DashboardComponents/SimpleCard";
 import { SimpleCard2 } from "./DashboardComponents/SimpleCard2";
-import { Card, CardContent, Typography } from "@material-ui/core";
 import Chart from "./DashboardComponents/Chart";
+import LineChart from "./DashboardComponents/LineChart";
 
 export default class Dashboard extends Component {
   service = new PageService();
@@ -59,7 +59,7 @@ export default class Dashboard extends Component {
     function capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
-
+    console.log(sessionStorage.getItem("role"))
     return (
       <div className={styles.container}>
         {sessionStorage.getItem("username") != null ? (
@@ -74,7 +74,17 @@ export default class Dashboard extends Component {
                 </div>
               </div>
             </div>
-            <Chart data={this.state.categories}/>
+            <div className='row'>
+              <div className='col-md'>
+                <Chart data={this.state.categories}/>
+              </div>
+              <div className='col-md'>
+                
+                <LineChart data={this.state.users}/>
+              </div>
+            </div>
+            
+            
             <div className="row">
               <div className="col-md">
                 <h3>

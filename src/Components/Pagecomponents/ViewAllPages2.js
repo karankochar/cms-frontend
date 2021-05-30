@@ -1,32 +1,32 @@
+import React, { useEffect } from 'react'
 import Page from "../../Models/Page";
 import { PageService } from "../../Services/PageService";
 import Table from "material-table";
-import React, { Component } from "react";
 import DescriptionIcon from "@material-ui/icons/Description";
 import { Link } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
+import { connect } from "react-redux";
+import { fetchPages } from "../../Redux/PageAction";
 
-export default class ViewAllPages extends Component {
-  service = new PageService();
-  state = {
-    page: new Page(),
-    AllPages: [],
-    error: {
-      pageError: "",
-    },
-  };
+const ViewAllPages2 = ({ history, pageData, fetchPages }) => {
 
-  componentDidMount() {
-    this.service.viewAll().then((result) => {
-      this.setState({ AllPages: result.data });
-    });
-  }
+  useEffect(() => {
+    if (sessionStorage.getItem("username") === null) {
+      alert("Unauthorized")
+      history.push("/");
+    }
+    fetchPages();
+  }, []);
 
-  render() {
-    let role = sessionStorage.getItem("role").toLowerCase();
-    let id = sessionStorage.getItem("userId");
-    return (
-      <div className="container">
+  let role = sessionStorage.getItem("role").toLowerCase();
+  let id = sessionStorage.getItem("userId");
+  
+  return pageData.loading ? (
+   <h2>Loading...</h2>
+  ) : pageData.error ? (
+    <h2>{pageData.error}</h2>
+  ) : (
+    <div className="container">
         <hr />
         <div className="row d-flex justify-content-around">
           <div className>
@@ -55,7 +55,7 @@ export default class ViewAllPages extends Component {
             { title: "Category", field: "categoryTitle" },
             { title: "Author", field: "fullName" },
           ]}
-          data={this.state.AllPages}
+          data={pageData.pages}
           options={{
             paging: true,
             actionsColumnIndex: -1,
@@ -104,5 +104,21 @@ export default class ViewAllPages extends Component {
         ></Table>
       </div>
     );
-  }
+
+  
 }
+
+const mapStateToProps = (state) => {
+  //  alert("map state: " + JSON.stringify(state.students));
+  return {
+    pageData: state.pages,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPages: () => dispatch(fetchPages()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewAllPages2);

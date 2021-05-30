@@ -1,17 +1,32 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchPages } from "../../Redux/PageAction";
 
-export default class Pages extends Component {
-    render() {
-        return (
-            <div>
-                {sessionStorage.getItem("role")==="User" ? 
-                    <div>
-                        <Link className='btn btn-primary' to={`/cms-app/pages/addPage`}>Add Page</Link>
-                    </div>
-                : null}
-                
-            </div>
-        )
+function Pages({ history, pageData, fetchPages }) {
+
+  useEffect(() => {
+    if (sessionStorage.getItem("username") === null) {
+      history.push("/");
     }
+    fetchPages();
+  }, []);
+  return(
+      <h1>Hello</h1>
+  )
 }
+
+const mapStateToProps = (state) => {
+  //  alert("map state: " + JSON.stringify(state.students));
+  return {
+    pageData: state.pages,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPages: () => dispatch(fetchPages()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pages);

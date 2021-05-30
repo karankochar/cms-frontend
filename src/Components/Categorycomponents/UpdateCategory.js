@@ -2,12 +2,9 @@ import React, { Component } from 'react'
 import {CategoryService} from "../../Services/CategoryService"
 import Category from "../../Models/Category"
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from "react-router-dom";
-import img from "./cmsi.jpg"
-
 
 export default class UpdateCategory extends Component {
     service = new CategoryService();

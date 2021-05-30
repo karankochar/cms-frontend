@@ -96,6 +96,7 @@ export default class ModifyUser extends Component {
   };
 
   render() {
+    let role = sessionStorage.getItem("role").toLowerCase();
     return (
       <div className='container'>
         <Card  >
@@ -170,16 +171,27 @@ export default class ModifyUser extends Component {
                 <div className="form-group mr2">
                   <div className="alert-danger">{this.state.error.roleError}</div>
                   <label className="col-sm-2 col-form-label "><b>Enter User Role </b></label>
+                  {role === 'admin' ? 
                   <input
-                    type="text"
-                    className="col-sm-6"
-                    id="role"
-                    placeholder="Enter User Role"
-                    value={this.state.user.role}
-                    onChange={(event) =>
-                      this.setState({ user: { ...this.state.user, role: event.target.value } })
-                    }
-                  />
+                  type="text"
+                  className="col-sm-6"
+                  id="role"
+                  placeholder="Enter User Role"
+                 
+                  value={this.state.user.role}
+                  onChange={(event) =>
+                    this.setState({ user: { ...this.state.user, role: event.target.value } })
+                  }
+                />
+                  :<input
+                  type="text"
+                  className="col-sm-6"
+                  id="role"
+                  placeholder="Enter User Role"
+                  value={this.state.user.role}
+                  readonly
+                />}
+                 
                 </div>
                 <div className="form-group mr2">
                   <div className="alert-danger">{this.state.error.statusError}</div>

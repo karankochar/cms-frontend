@@ -10,9 +10,9 @@ import ViewPageById from "./Components/Pagecomponents/ViewPageById";
 import Categories from "./Components/Pages/Categories";
 import AddCategory from "./Components/Categorycomponents/AddCategory";
 import UpdateCategory from "./Components/Categorycomponents/UpdateCategory";
-import AddAdmin from "./Components/Usercomponents/AddAdmin"
-import AddUser from "./Components/Usercomponents/AddUser"
-import ViewAllUsers from "./Components/Usercomponents/ViewAllUsers"
+import AddAdmin from "./Components/Usercomponents/AddAdmin";
+import AddUser from "./Components/Usercomponents/AddUser";
+import ViewAllUsers from "./Components/Usercomponents/ViewAllUsers";
 import DeleteUser from "./Components/Usercomponents/DeleteUser";
 import ViewUserById from "./Components/Usercomponents/ViewUserById";
 import ModifyUser from "./Components/Usercomponents/ModifyUser";
@@ -20,10 +20,14 @@ import ViewAllPages from "./Components/Pagecomponents/ViewAllPages";
 import SearchPageByContent from "./Components/Pagecomponents/SearchPageByContent";
 import ViewPageByContent from "./Components/Pagecomponents/ViewPageByContent";
 import UpdatePage from "./Components/Pagecomponents/UpdatePage";
-
+import styles from './App.module.css';
+import { Provider } from "react-redux";
+import store from "./Redux/store"
+import ViewAllPages2 from "./Components/Pagecomponents/ViewAllPages2";
 
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <div>
         {sessionStorage.getItem("username") != null ? (
@@ -31,6 +35,7 @@ function App() {
             <Header />
           </div>
         ) : null}
+        <div className={styles.flexwrapper}>
         <div className="container">
           <Switch>
             <Route exact path="/" component={LoginComponent} />
@@ -39,7 +44,7 @@ function App() {
             <Route exact path="/cms-app/pages/addPage" component={AddPage} />
             <Route
               exact
-              path="/cms-app/pages/viewPage/:id"
+              path="/cms-app/pages/byId/:id"
               component={ViewPageById}
             />
             <Route exact path="/cms-app/categories" component={Categories} />
@@ -52,11 +57,25 @@ function App() {
             <Route exact path="/cms-app/users/addAdmin" component={AddAdmin} />
             <Route exact path="/cms-app/users/addUser" component={AddUser} />
             <Route exact path="/cms-app/users" component={ViewAllUsers} />
-            <Route exact path="/cms-app/users/delete/byId/:id" component={DeleteUser} />
+            <Route
+              exact
+              path="/cms-app/users/delete/byId/:id"
+              component={DeleteUser}
+            />
 
-            <Route exact path="/cms-app/users/search/byId/:id" component={ViewUserById} />
-            <Route exact path="/cms-app/users/modify/byId/:id" component={ModifyUser} />
-            <Route exact path="/cms-app/pages" component={ViewAllPages} />
+            <Route
+              exact
+              path="/cms-app/users/search/byId/:id"
+              component={ViewUserById}
+            />
+            <Route
+              exact
+              path="/cms-app/users/modify/byId/:id"
+              component={ModifyUser}
+            />
+            
+            <Route exact path="/cms-app/pages2" component={Pages} />
+            <Route exact path="/cms-app/pages" component={ViewAllPages2} />
 
             <Route
               exact
@@ -69,11 +88,6 @@ function App() {
               component={ViewPageByContent}
             />
             <Route
-              exact
-              path="/cms-app/pages/byId/:id"
-              component={ViewPageById}
-            />
-            <Route
               exact //${userId}/${categoryId}
               path="/cms-app/modify"
               component={UpdatePage}
@@ -84,9 +98,12 @@ function App() {
           <div>
             <Footer />
           </div>
+          
         ) : null}
+        </div>
       </div>
     </Router>
+    </Provider>
   );
 }
 
