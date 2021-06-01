@@ -14,10 +14,10 @@ export default class ViewUserById extends Component {
   }
 
   componentDidMount() {
-    // if (sessionStorage.getItem("username") === null) {
-    //   alert('Unauthorized Access');
-    //   this.props.history.push("/");
-    // }
+    if (sessionStorage.getItem("username") === null) {
+      alert('Unauthorized Access');
+      this.props.history.push("/");
+    }
 
     
     let service = new UserService();
@@ -36,6 +36,7 @@ export default class ViewUserById extends Component {
   }
 
   render() {
+    const role= sessionStorage.getItem("role")
     return (
       <div>
         <Card>
@@ -77,7 +78,7 @@ export default class ViewUserById extends Component {
               <div className="form-group">
                 <button
                   className="btn btn-primary"
-                  onClick={() => this.props.history.push("/cms-app/users")}
+                  onClick={() => {role==="Admin"?this.props.history.push("/cms-app/users"):this.props.history.push("/cms-app/dashboard")}}
                 >
                   Back
                 </button>

@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { PageService } from "../../Services/PageService";
-
-import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -21,9 +18,12 @@ export default class ViewPageByContent extends Component {
   }
   componentDidMount() {
     let service = new PageService();
+    if(sessionStorage.getItem("username") === null){
+      alert("Unauthorized");
+      this.props.history.push("/")
+    }
     service
       .findPageByContent(this.props.match.params.content)
-
       .then((result) => {
         console.log(result);
         this.setState({ pages: result.data });
@@ -56,7 +56,7 @@ export default class ViewPageByContent extends Component {
                 {this.state.pages.map((p) => (
                   <TableRow>
                     <TableCell align="center">
-                      <Link to={`/cms-app/pages/viewPage/${p.pageId}`}>
+                      <Link to={`/cms-app/pages/byId/${p.pageId}`}>
                         {p.pageTitle}
                       </Link>
                     </TableCell>
@@ -67,9 +67,8 @@ export default class ViewPageByContent extends Component {
               </TableBody>
             </Table>
           </TableContainer>
-        ) : (
-          <div> No Page found containing this word</div>
-        )}
+        ) : <h2>No page found</h2>
+        }
       </div>
     );
   }

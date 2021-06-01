@@ -1,7 +1,8 @@
 import React,{useState} from 'react'
 import './Header.css'
 import ReorderIcon from "@material-ui/icons/Reorder";
-import Logo from './Studiopress-Logo.png'
+import Logo from './logo.png'
+import Logo1 from './logoname.png'
 import { Link } from 'react-router-dom';
 
 function Header() {
@@ -11,7 +12,7 @@ function Header() {
   return (
     <div className="Navbar">
       <div className="leftside">
-        <div><img src={Logo} width='60px' height='50px'/></div>
+        <div><img src={Logo} width='35' height='50px'/></div>
         <div className="links" id={showLinks ? "hidden" : ""}>
        
           <a href="/cms-app/dashboard">Dashboard</a>

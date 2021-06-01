@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-import { makeStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
-import blue from '../Pages/blue.jpg'
+import { BrowsePagesCard } from "./Cards/BrowsePagesCard";
+import QuoteCard1 from "./Cards/QuoteCard1"; 
 
 export default class SearchPageByContent extends Component {
   constructor(props) {
@@ -14,54 +13,68 @@ export default class SearchPageByContent extends Component {
     };
   }
   render() {
-
+    if (sessionStorage.getItem("username") === null) {
+      alert("Unauthorized Access");
+      this.props.history.push("/");
+    }
 
 
     return (
-
-
-
-      <Card variant="outlined" style={{ textAlign: 'center', backgroundColor: '#778da9', minHeight:'100px', width: '50%' ,margin: 'auto' ,marginTop:'5%',marginBottom:'5%' }} >
-        <CardContent  >
-          <div>
-               <h2 style={{color:'white'}}> Search Pages By content</h2>
-
+    <div>
+        <Card variant="outlined" style={{ textAlign: 'center' , backgroundColor: '#fff' }} >
+          <CardContent  >
+            <div>
+              <h3 style={{ color: 'black' }}> Happy Searching !!</h3>
+           
               <div>
-              <form>
-                <div class="row">
-                  <div class="col">
-                    </div>  
-                  <div class="col">
-                  <input type="text" class="form-control" placeholder="Search..." value={this.state.content}
-                      onChange={(e) => {
-                        this.setState({ content: e.target.value });
-                      }} />
-                      
+                <form>
+                  <div className="row">
+                    <div className="col">
+                    </div>
+                    <div className="col">
+                      <input type="text" className="form-control" placeholder="Search a word..." value={this.state.content}
+                        onChange={(e) => {
+                          this.setState({ content: e.target.value });
+                        }} />
+
+                    </div>
+                    <div className="col">  </div>
                   </div>
-                  <div class="col">
-                  
-                  </div>
-               
-                
-               
-                </div> 
-                
-                <Link
-                      className="btn btn-primary mb-2"
-                      to={`/pages/viewPageByContent/${this.state.content}`}>
-                      {" "}Search</Link>
-                  
-              </form>
+                  <br/>
+                  <Link
+                    className="btn btn-primary mb-2"
+                    to={`/pages/viewPageByContent/${this.state.content}`}>
+                    {" "}Search</Link>
+
+                </form>
+              </div>
             </div>
-          </div>
+          </CardContent>
+        </Card>
+     <br />
+     <br />
+        <div className="row">
+              <div className="col">
+              <BrowsePagesCard/>
+            
+              </div>
+              <div className="col">
+        <QuoteCard1/>
+              </div>
+        </div>
+        </div> 
 
-        </CardContent>
-      </Card>
-
-
-  
     );
   }
 }
+
+
+
+
+
+
+
+
+
 
 

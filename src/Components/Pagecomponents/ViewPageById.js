@@ -13,6 +13,10 @@ export default class ViewPageById extends Component {
     }
     componentDidMount(){
         let pageId = this.props.match.params.id
+        if(sessionStorage.getItem("username")===null){
+            alert("Unauthorized")
+            this.props.history.push("/")
+        }
         this.service.viewPage(pageId)
         .then((res)=>{
             console.log(res.data)

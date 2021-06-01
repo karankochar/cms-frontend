@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import {CategoryService} from "../../Services/CategoryService"
 import Category from "../../Models/Category"
+import Table from "material-table";
+import Edit from '@material-ui/icons/Edit'
 import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { SimpleCard } from './SimpleCard';
+
 
 
 
@@ -19,6 +24,10 @@ export default class AddCategory extends Component {
   };
 
   componentDidMount() {
+    if (sessionStorage.getItem("username")===null) {
+      alert("Unauthorized access");
+      this.props.history.push("/");
+    }
 
     // console.log("  componentDidMount called")
     // if (sessionStorage.getItem("username") === null) {
@@ -107,7 +116,7 @@ export default class AddCategory extends Component {
                     />
                   </div>
                   <Typography variant="body2" component="p" >
-                    <button type="submit" className="btn btn-outline-primary">
+                    <button type="submit" data-testid="AddCategory" className="btn btn-outline-dark">
                       Add Category
         </button>
                   </Typography>
@@ -128,7 +137,7 @@ export default class AddCategory extends Component {
                                </Typography>
                 <Typography variant="body2" component="p">
                   <br />
-                  <Link to="/" className="btn btn-outline-dark">
+                  <Link to="/cms-app/categories" className="btn btn-outline-dark">
                     Explore Category
                                       </Link>
                 </Typography>

@@ -34,10 +34,6 @@ cursor: pointer;
    margin-left: 25px;
 }
 
-.Navbar .leftside .links a:hover{
-    transition: ease-in 0.2s;
-    color: #023e8a;
-}
 
 .Navbar .leftside button{
      display: none;

@@ -1,30 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import User from "../../Models/User";
+import { UserService } from "../../Services/UserService";
 
-import User from '../../Models/User';
-import { UserService } from '../../Services/UserService'
+import { Card } from "@material-ui/core";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
 
-import { Card } from '@material-ui/core';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-
-export default class AddUser extends Component {
+export default class AddAdmin extends Component {
   service = new UserService();
   state = {
     user: new User(),
     users: [],
 
     error: {
-
       roleError: "",
       fullNameError: "",
       userNameError: "",
       emailError: "",
       passwordError: "",
       statusError: "",
-
-    }
+    },
   };
-
 
   validate = () => {
     let flag = true;
@@ -45,20 +41,19 @@ export default class AddUser extends Component {
     if (!this.state.user.password || this.state.user.password.length < 6) {
       flag = false;
       error.passwordError = " Valid Password Is Required";
-
     }
 
-    if (!this.state.user.role || this.state.user.role == "ROLE_ADMIN") {
+    if (!this.state.user.role || this.state.user.role === "") {
       flag = false;
-      error.roleError = "Valid Role Is Required";
+      error.roleError = " Role Is Required";
     }
     if (!this.state.user.status) {
       flag = false;
       error.statusError = "Status Is Required";
     }
+    
 
-
-    this.setState({ error: error })
+    this.setState({ error: error });
     return flag;
   };
 
@@ -70,107 +65,134 @@ export default class AddUser extends Component {
       return false;
     }
 
-    this.service.addUser(this.state.user)
+    this.service
+      .addAdmin(this.state.user)
       .then((data) => {
-        alert("User Added Successful");
-        // redirect you to ViewAll component after adding user
-        this.props.history.push("/viewAll");
+        alert(" Added Successful");
+
+        this.props.history.push("/cms-app/users");
       })
       .catch((error) => {
-
-        alert("User already present")
+        alert(error);
         // alert(JSON.stringify(error))
 
-        // redirect you to Home component after alert box
-        this.props.history.push("/viewall");
+        // redirect you to viewAll component after alert box
+        this.props.history.push("/cms-app/users");
       });
   };
 
+  componentDidMount() {
+    if (sessionStorage.getItem("username") === null) {
+      alert("Unauthorized Access");
+      this.props.history.push("/");
+    }
+    let service = new UserService();
+    service.findAllUser(this.props.match.params.id).then((result) => {
+      this.setState({
+        user: result.data,
+      });
+    });
+  }
+
   render() {
-
     return (
-
-      <div className='container'>
-
-
-        <Card  >
+      <div className="container">
+        <Card>
           <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              Enter detail to add  User
-        </Typography>
-            <Typography variant="h3" component="h2">
-              Add User
-        </Typography>
+            <Typography variant="h3" component="h2" className='text-center'>
+              Add User or Admin
+              <br />
+            </Typography>
             <Typography variant="body2" component="p">
               <br />
-
               <form onSubmit={this.handleSubmit}>
-
-
-
-
-
                 <div className="form-group mr2">
-                  <div className="alert-danger">{this.state.error.userNameError}</div>
+                  <div className="alert-danger">
+                    {this.state.error.userNameError}
+                  </div>
 
                   <input
-
                     type="text"
                     className="form-control"
                     id="userName"
-                    placeholder="Enter User Name"
+                    placeholder="Enter Username"
                     value={this.state.user.userName}
                     onChange={(event) =>
-                      this.setState({ user: { ...this.state.user, userName: event.target.value } })
+                      this.setState({
+                        user: {
+                          ...this.state.user,
+                          userName: event.target.value,
+                        },
+                      })
                     }
                   />
                 </div>
                 <div className="form-group mr2">
-                  <div className="alert-danger">{this.state.error.fullNameError}</div>
+                  <div className="alert-danger">
+                    {this.state.error.fullNameError}
+                  </div>
 
                   <input
                     type="text"
                     className="form-control"
                     id="fullName"
-                    placeholder="Enter User FullName"
+                    placeholder="Enter Full Name"
                     value={this.state.user.fullName}
                     onChange={(event) =>
-                      this.setState({ user: { ...this.state.user, fullName: event.target.value } })
+                      this.setState({
+                        user: {
+                          ...this.state.user,
+                          fullName: event.target.value,
+                        },
+                      })
                     }
                   />
                 </div>
                 <div className="form-group mr2">
-                  <div className="alert-danger">{this.state.error.emailError}</div>
+                  <div className="alert-danger">
+                    {this.state.error.emailError}
+                  </div>
 
                   <input
                     type="text"
                     className="form-control"
                     id="email"
-                    placeholder="Enter User Email"
+                    placeholder="Enter Email"
                     value={this.state.user.email}
                     onChange={(event) =>
-                      this.setState({ user: { ...this.state.user, email: event.target.value } })
+                      this.setState({
+                        user: { ...this.state.user, email: event.target.value },
+                      })
                     }
                   />
                 </div>
                 <div className="form-group mr2">
-                  <div className="alert-danger">{this.state.error.passwordError}</div>
+                  <div className="alert-danger">
+                    {this.state.error.passwordError}
+                  </div>
 
                   <input
                     type="text"
                     className="form-control"
                     id="password"
-                    placeholder="Enter User password"
+                    placeholder="Enter password"
                     value={this.state.user.password}
                     onChange={(event) =>
-                      this.setState({ user: { ...this.state.user, password: event.target.value } })
+                      this.setState({
+                        user: {
+                          ...this.state.user,
+                          password: event.target.value,
+                        },
+                      })
                     }
                   />
                 </div>
                 <div className="form-group mr2">
-                  <div className="alert-danger">{this.state.error.roleError}</div>
+                  <div className="alert-danger">
+                    {this.state.error.roleError}
+                  </div>
 
-                  <input
+                  {/* <input
                     type="text"
                     className="form-control"
                     id="role"
@@ -179,46 +201,60 @@ export default class AddUser extends Component {
                     onChange={(event) =>
                       this.setState({ user: { ...this.state.user, role: event.target.value } })
                     }
-                  />
+                  /> */}
+                  {/* <select */}
+                  <select
+                    className="form-control"
+                    value={this.state.user.role}
+                    onChange={(event) =>
+                      this.setState({
+                        user: { ...this.state.user, role: event.target.value },
+                      })
+                    }
+                  >
+                    <option value="">Select role</option>
+                    <option>Admin</option>
+                    <option>User</option>
+                  </select>
                 </div>
                 <div className="form-group mr2">
-                  <div className="alert-danger">{this.state.error.statusError}</div>
+                  <div className="alert-danger">
+                    {this.state.error.statusError}
+                  </div>
 
                   <input
                     type="text"
                     className="form-control"
                     id="status"
-                    placeholder="Enter User Status"
+                    placeholder="Enter User Status - Only true or false"
                     value={this.state.user.status}
                     onChange={(event) =>
-                      this.setState({ user: { ...this.state.user, status: event.target.value } })
+                      this.setState({
+                        user: {
+                          ...this.state.user,
+                          status: event.target.value,
+                        },
+                      })
                     }
                   />
                 </div>
 
-
                 <div className="form-group">
-                  <button className="btn btn-primary form-control" onClick={
-                    () => {
+                  <button
+                    className="btn btn-primary form-control"
+                    onClick={() => {
                       this.state.users.push(this.state.user);
                       this.setState({ users: this.state.users });
-
-                    }
-                  }
-
-                  >Submit</button>
+                    }}
+                  >
+                    Submit
+                  </button>
                 </div>
               </form>
-
-
-
             </Typography>
           </CardContent>
         </Card>
       </div>
-
-
-
-    )
+    );
   }
 }

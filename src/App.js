@@ -3,27 +3,24 @@ import LoginComponent from "./Components/Pages/LoginComponent";
 import Dashboard from "./Components/Pages/Dashboard";
 import Header from "./Components/Layout/Header";
 import Footer from "./Components/Layout/Footer";
-import Pages from "./Components/Pages/Pages";
 import AddPage from "./Components/Pagecomponents/AddPage";
 import LogoutComponent from "./Components/Pages/LogoutComponent";
 import ViewPageById from "./Components/Pagecomponents/ViewPageById";
 import Categories from "./Components/Pages/Categories";
 import AddCategory from "./Components/Categorycomponents/AddCategory";
 import UpdateCategory from "./Components/Categorycomponents/UpdateCategory";
-import AddAdmin from "./Components/Usercomponents/AddAdmin";
 import AddUser from "./Components/Usercomponents/AddUser";
 import ViewAllUsers from "./Components/Usercomponents/ViewAllUsers";
 import DeleteUser from "./Components/Usercomponents/DeleteUser";
 import ViewUserById from "./Components/Usercomponents/ViewUserById";
 import ModifyUser from "./Components/Usercomponents/ModifyUser";
-import ViewAllPages from "./Components/Pagecomponents/ViewAllPages";
 import SearchPageByContent from "./Components/Pagecomponents/SearchPageByContent";
 import ViewPageByContent from "./Components/Pagecomponents/ViewPageByContent";
 import UpdatePage from "./Components/Pagecomponents/UpdatePage";
 import styles from './App.module.css';
 import { Provider } from "react-redux";
 import store from "./Redux/store"
-import ViewAllPages2 from "./Components/Pagecomponents/ViewAllPages2";
+import ViewAllPages from "./Components/Pagecomponents/ViewAllPages";
 
 function App() {
   return (
@@ -48,14 +45,14 @@ function App() {
               component={ViewPageById}
             />
             <Route exact path="/cms-app/categories" component={Categories} />
-            <Route exact path="/addCategory" component={AddCategory} />
+            <Route exact path="/cms-app/categories/addCategory" component={AddCategory} />
             <Route
               exact
-              path="/modifycategory/:id"
+              path="/cms-app/categories/modifyCategory/:id"
               component={UpdateCategory}
             />
-            <Route exact path="/cms-app/users/addAdmin" component={AddAdmin} />
             <Route exact path="/cms-app/users/addUser" component={AddUser} />
+            
             <Route exact path="/cms-app/users" component={ViewAllUsers} />
             <Route
               exact
@@ -74,8 +71,8 @@ function App() {
               component={ModifyUser}
             />
             
-            <Route exact path="/cms-app/pages2" component={Pages} />
-            <Route exact path="/cms-app/pages" component={ViewAllPages2} />
+            
+            <Route exact path="/cms-app/pages" component={ViewAllPages} />
 
             <Route
               exact
@@ -89,7 +86,7 @@ function App() {
             />
             <Route
               exact //${userId}/${categoryId}
-              path="/cms-app/modify"
+              path="/cms-app/pages/modify/:id"
               component={UpdatePage}
             />
           </Switch>

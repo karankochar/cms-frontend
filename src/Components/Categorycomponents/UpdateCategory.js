@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from "react-router-dom";
 
+
 export default class UpdateCategory extends Component {
     service = new CategoryService();
     state = {
@@ -16,6 +17,10 @@ export default class UpdateCategory extends Component {
         }
     };
     componentDidMount() {
+        if (sessionStorage.getItem("username")===null) {
+            alert("Unauthorized access");
+            this.props.history.push("/");
+          }
 
         this.service.findCategoryById(this.props.match.params.id).then((result) => {
             // alert(JSON.stringify(result.data))
@@ -64,7 +69,7 @@ export default class UpdateCategory extends Component {
                 // redirect you to addcategory after updating category
                 //  alert(JSON.stringify(data1.data))
                 alert("Category is Updated")
-                this.props.history.push("cms-app/categories");
+                this.props.history.push("/cms-app/categories");
             })
             .catch((error) => {
                 alert(JSON.stringify(error))
@@ -101,7 +106,7 @@ export default class UpdateCategory extends Component {
                                         />
                                     </div>
                                     <Typography variant="body2" component="p" >
-                                        <button type="submit" className="btn btn-outline-primary"> Save  </button>
+                                        <button type="submit" className="btn btn-outline-dark"> Save  </button>
                                     </Typography>
                                 </form>
                             </CardContent>
@@ -119,7 +124,7 @@ export default class UpdateCategory extends Component {
                                </Typography>
                                 <Typography variant="body2" component="p">
                                     <br />
-                                    <Link to="/" className="btn btn-outline-dark">
+                                    <Link to="/cms-app/categories" className="btn btn-outline-dark">
                                         Explore Category
                                       </Link>
                                 </Typography>

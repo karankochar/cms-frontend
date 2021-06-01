@@ -104,7 +104,7 @@ export default class LoginComponent extends Component {
                     <div className="form-group">
                         <div className="alert-danger">{this.state.error.invalidCredentials}</div>
                     </div>
-                    <button type="submit" className="btn btn-primary">Login</button>
+                    <button type="submit" className="btn btn-light">Login</button>
                 </form>
             
 

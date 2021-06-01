@@ -5,10 +5,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 
-
 const useStyles = makeStyles({
     root: {
       minWidth: 275,
+      color:"#FFFFFF"
       
     },
     bullet: {
@@ -30,21 +30,18 @@ export const SimpleCard = () => {
     const classes = useStyles();
     return (
         <div color="seconadry">
-            <Card className={classes.root} style={{ textAlign: 'left', backgroundColor:'gray' }}  >
+            <Card className={classes.root} style={{ textAlign: 'center', backgroundColor:"#778da9" }}  >
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Hey...........
+        {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
+          welcome
+        </Typography> */}
+        <Typography variant="h4" component="h2">
+         All Categories
         </Typography>
-        <Typography variant="h6" component="h2">
-         Choose the category wisely, so you will enjoy the writing.
-        </Typography>
-        <Typography variant="body2" component="p">
-          <br/>
-         ....By Writer.
-        </Typography>
+       
        <br/>
       <Typography  variant="body2" component="p">
-      <Link className='btn btn-primary' to='/addCategory'>Add Category</Link>
+      <Link className='btn btn-outline-light' to='/cms-app/categories/addCategory'>Add Category</Link>
       </Typography>
        
         

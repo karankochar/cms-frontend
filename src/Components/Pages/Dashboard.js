@@ -10,14 +10,14 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import styles from "./Dashboard.module.css";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { AccountCircle, MenuBook } from "@material-ui/icons";
 import { SimpleCard } from "./DashboardComponents/SimpleCard";
 import { SimpleCard2 } from "./DashboardComponents/SimpleCard2";
 import Chart from "./DashboardComponents/Chart";
 import LineChart from "./DashboardComponents/LineChart";
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
   service = new PageService();
   UserService = new UserService();
   categoryService = new CategoryService();
@@ -31,22 +31,26 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    if (sessionStorage.getItem("username" === null)) {
-      alert("Unauthorized access");
+    if (sessionStorage.getItem("username") === null) {
+      alert("Unauthorized Access");
       this.props.history.push("/");
     }
+    else{
     this.service
       .viewAll()
       .then((result) => {
+        console.log(result.data);
         this.setState({ pages: result.data });
       })
       .catch((err) => {
         console.log(err);
       });
     this.UserService.viewAll().then((result) => {
+      console.log(result.data);
       this.setState({ users: result.data });
     });
     this.categoryService.viewAll()
+    
     .then((res)=>{
       console.log(res.data);
       this.setState({categories:res.data})
@@ -54,12 +58,13 @@ export default class Dashboard extends Component {
       alert(err);
     })
   }
+}
+
 
   render() {
     function capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
-    console.log(sessionStorage.getItem("role"))
     return (
       <div className={styles.container}>
         {sessionStorage.getItem("username") != null ? (
@@ -177,3 +182,4 @@ export default class Dashboard extends Component {
     );
   }
 }
+export default withRouter(Dashboard);

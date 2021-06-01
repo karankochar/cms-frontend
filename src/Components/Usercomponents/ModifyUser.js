@@ -24,10 +24,10 @@ export default class ModifyUser extends Component {
     }
   };
   componentDidMount() {
-    // if (sessionStorage.getItem("username") === null) {
-    //   alert('Unauthorized Access');
-    //   this.props.history.push("/");
-    // }////////////////////////////////////////////////////////
+    if (sessionStorage.getItem("username") === null) {
+      alert('Unauthorized Access');
+      this.props.history.push("/");
+    }
 
     this.service.findUserById(this.props.match.params.id)
       .then((result) => {
@@ -85,30 +85,30 @@ export default class ModifyUser extends Component {
       .then((data) => {
         alert("User Modified Successful");
         // redirect you to viewAll component after adding user
-        this.props.history.push("/viewAll");
+        this.props.history.push("/cms-app/dashboard");
       })
       .catch((error) => {
         alert(JSON.stringify(error))
         // alert(error.response.data.message);
         // redirect you to Home component after alert box
-        this.props.history.push("/viewAll");
+        this.props.history.push("/cms-app/dashboard");
       });
   };
 
   render() {
-    let role = sessionStorage.getItem("role").toLowerCase();
+    
     return (
       <div className='container'>
+        
         <Card  >
+        <div className="text-center">
           <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              Enter detail to Modify  User
-        </Typography>
             <Typography variant="h3" component="h2">
-              Modify User
+              Update
         </Typography>
             <Typography variant="body2" component="p">
               <br />
+              
               <form onSubmit={this.handleSubmit}>
 
 
@@ -168,31 +168,24 @@ export default class ModifyUser extends Component {
                     }
                   />
                 </div>
+                {sessionStorage.getItem("role")==="Admin" ? 
                 <div className="form-group mr2">
                   <div className="alert-danger">{this.state.error.roleError}</div>
                   <label className="col-sm-2 col-form-label "><b>Enter User Role </b></label>
-                  {role === 'admin' ? 
                   <input
-                  type="text"
-                  className="col-sm-6"
-                  id="role"
-                  placeholder="Enter User Role"
-                 
-                  value={this.state.user.role}
-                  onChange={(event) =>
-                    this.setState({ user: { ...this.state.user, role: event.target.value } })
-                  }
-                />
-                  :<input
-                  type="text"
-                  className="col-sm-6"
-                  id="role"
-                  placeholder="Enter User Role"
-                  value={this.state.user.role}
-                  readonly
-                />}
-                 
+                    type="text"
+                    className="col-sm-6"
+                    id="role"
+                    placeholder="Enter User Role"
+                    value={this.state.user.role}
+                    onChange={(event) =>
+                      this.setState({ user: { ...this.state.user, role: event.target.value } })
+                    }
+                  />
+                
                 </div>
+                :null }
+                {sessionStorage.getItem("role")==="Admin" ? 
                 <div className="form-group mr2">
                   <div className="alert-danger">{this.state.error.statusError}</div>
                   <label className="col-sm-2 col-form-label "><b>Enter User Status </b></label>
@@ -200,23 +193,27 @@ export default class ModifyUser extends Component {
                     type="text"
                     className="col-sm-6 "
                     id="status"
-                    placeholder="Enter User Status"
+                    placeholder="Enter User Status - Only true or false"
                     value={this.state.user.status}
                     onChange={(event) =>
                       this.setState({ user: { ...this.state.user, status: event.target.value } })
                     }
                   />
                 </div>
+                : null}
 
 
                 <button className="btn btn-primary col-sm-8 "
 
-                >Modified User</button>
+                >Update</button>
 
               </form>
+              
             </Typography>
           </CardContent>
+          </div>
         </Card>
+        
       </div>
     )
   }

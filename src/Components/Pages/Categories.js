@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
+import { Link } from "react-router-dom";
 import {CategoryService} from "../../Services/CategoryService"
 import Category from "../../Models/Category"
 import Table from "material-table";
 import Edit from '@material-ui/icons/Edit'
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 import { SimpleCard } from '../Categorycomponents/SimpleCard';
 
 
@@ -19,6 +24,11 @@ export default class AddCategory extends Component {
   };
 
   componentDidMount() {
+
+    if (sessionStorage.getItem("username")===null) {
+      alert("Unauthorized access");
+      this.props.history.push("/");
+    }
 
     // console.log("  componentDidMount called")
     // if (sessionStorage.getItem("username") === null) {
@@ -72,17 +82,17 @@ export default class AddCategory extends Component {
    <div className='container' >
       <div className="row">
         <div className="col-md">
-          <br/>
+          
        <SimpleCard/>
         </div>
         </div>
-        <br /><br />
+        <br />
         {
           this.state.Allcategory.length > 0 ? (
             <Table title="Category Tabel"
               // icons={Icons}
               columns={[
-                { title: 'categoryTitle', field: 'categoryTitle' },
+                { title: 'Title', field: 'categoryTitle' },
               ]}
 
               data={
@@ -99,7 +109,7 @@ export default class AddCategory extends Component {
                   tooltip: 'Update category',
                   onClick: (event, rowData) =>
                     //  <Link to={`/modifycategory/${rowData.categoryId}`}>Edit</Link>
-                    this.props.history.push(`/modifycategory/${rowData.categoryId}`)
+                    this.props.history.push(`/cms-app/categories/modifyCategory/${rowData.categoryId}`)
                 },
                 {
                   icon: 'delete',

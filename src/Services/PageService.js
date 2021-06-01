@@ -11,15 +11,11 @@ export class PageService {
         return axios.post(`${this.baseUrl}/addPage/${userId}/${categoryId}`,page)
     }
 
-    viewPage(pageId){
-        return axios.get(`${this.baseUrl}/byId/${pageId}`)
-    }
-
     deletePageById(pageId) {
         return axios.delete(`${this.baseUrl}/delete/${pageId}`);
       }
-      modifyPage(userId, categoryId) {
-        return axios.put(`${this.baseUrl}/modify/${userId}/${categoryId}`);
+      modifyPage(userId, categoryId, page) {
+        return axios.put(`${this.baseUrl}/modify/${userId}/${categoryId}`, page);
       }
       
       viewPage(pageId) {

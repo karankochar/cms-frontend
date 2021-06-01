@@ -36,6 +36,7 @@ export default class AddPage extends Component {
     this.categoryService
       .viewAll()
       .then((res) => {
+        console.log(res.data)
         this.setState({ categories: res.data });
         this.setState({
           page: {
@@ -58,8 +59,8 @@ export default class AddPage extends Component {
   validate = () => {
     let flag = true;
     let error = {};
-    if (!this.state.page.category.categoryId) {
-      error.idError = "Category Id Is Required";
+    if (!this.state.page.category.categoryId || this.state.page.category.categoryId==="") {
+      error.idError = "Category Is Required";
       flag = false;
     }
     if (!this.state.page.pageTitle) {
@@ -97,10 +98,10 @@ export default class AddPage extends Component {
       )
       .then((res) => {
         alert("Successfully Added Page");
-        this.props.history.push("/cms-app/dashboard");
+        this.props.history.push("/cms-app/pages");
       })
       .catch((err) => {
-        console.log(err);
+        alert(err);
       });
   };
 
@@ -133,7 +134,7 @@ export default class AddPage extends Component {
                       <div className="alert-danger">
                         {this.state.error.titleError}
                       </div>
-                      <label for="pagecontent">Page Title</label>
+                      <label for="pagetitle">Page Title</label>
                       <input
                         type="text"
                         className="form-control"
@@ -191,6 +192,7 @@ export default class AddPage extends Component {
                           })
                         }
                       >
+                        <option value=''>Select a category</option>
                         {this.state.categories.map((item) => (
                           <option key={item.categoryId} value={item.categoryId}>
                             {item.categoryTitle}

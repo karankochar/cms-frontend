@@ -5,16 +5,16 @@ export default class DeleteUser extends Component {
  
     state = {};
     componentDidMount() {
-    //   if (sessionStorage.getItem("username") === null) {
-    //     alert('Unauthorized Access');
-    //     this.props.history.push("/");
-    //   }
+      if (sessionStorage.getItem("username") === null) {
+        alert('Unauthorized Access');
+        this.props.history.push("/");
+      }
       let service = new UserService();
       service.deleteUserById(this.props.match.params.id)
         .then(
           (result) => {
             alert("User is deleted.");
-            this.props.history.push("/viewAll");
+            this.props.history.push("/cms-app/users");
           },
           (error) => {
             alert("User is not deleted.");
