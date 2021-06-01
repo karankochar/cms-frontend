@@ -73,6 +73,7 @@ export default class AddAdmin extends Component {
         this.props.history.push("/cms-app/users");
       })
       .catch((error) => {
+        console.log(error)
         alert(error);
         // alert(JSON.stringify(error))
 

@@ -77,7 +77,7 @@ export default class AddCategory extends Component {
         // redirect you to Home component after adding category
         //  alert(JSON.stringify(data1.data))
         alert("Category Added")
-        this.props.history.push("cms-app/categories");
+        this.props.history.push("/cms-app/categories");
       })
       .catch((error) => {
         alert(JSON.stringify(error))

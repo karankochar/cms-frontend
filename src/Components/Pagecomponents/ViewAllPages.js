@@ -92,11 +92,24 @@ const ViewAllPages2 = ({
             icon: "delete",
             tooltip: "Delete Page",
             onClick: (event, rowData) => {
-              if (rowData.userId == id) {
+              if(role === "admin"){
                 service
                   .deletePageById(rowData.pageId)
                   .then(() => {
                     alert("Page Deleted");
+                    fetchPages();
+                    
+                  })
+                  .catch((err) => {
+                    alert(JSON.stringify(err));
+                  });
+              }
+              else if (role="user" && rowData.userId == id) {
+                service
+                  .deletePageById(rowData.pageId)
+                  .then(() => {
+                    alert("Page Deleted");
+                    fetchPages();
                   })
                   .catch((err) => {
                     alert(JSON.stringify(err));
