@@ -117,7 +117,7 @@ class Dashboard extends Component {
                           .map((item) => (
                             <TableRow key={item.pageId}>
                               <TableCell id={styles.li}>
-                                <Link to={`pages/viewPage/${item.pageId}`}>
+                                <Link to={`pages/byId/${item.pageId}`}>
                                   {capitalize(item.pageTitle)}
                                 </Link>
                               </TableCell>
